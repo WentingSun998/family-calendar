@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>✈️ Family Holiday Calendar 2026</title>
+<style>
+:root {
+  --d1-bg:#EDE9FE; --d1-tc:#5B21B6;
+  --d4-bg:#FEF3C7; --d4-tc:#92400E;
+  --d7-bg:#FFEDD5; --d7-tc:#9A3412;
+  --d14-bg:#DCFCE7; --d14-tc:#166534;
+  --d1-pub:#F5F3FF; --d4-pub:#FFFBEB; --d7-pub:#FFF7ED; --d14-pub:#F0FDF4;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC',sans-serif;
+  background:#F0EBFF; min-height:100vh; padding:16px 16px 48px;
+}
+
+/* ── LANG SWITCH ── */
+.lang-switch{
+  position:fixed;top:14px;right:16px;z-index:1000;
+  background:#fff;border:1.5px solid #DDD6FE;border-radius:20px;
+  padding:5px 14px;font-size:12px;font-weight:700;cursor:pointer;
+  box-shadow:0 2px 8px rgba(124,58,237,.18);color:#6D28D9;
+  transition:all .15s;
+}
+.lang-switch:hover{background:#EDE9FE;transform:translateY(-1px);}
+
+/* ── HEADER ── */
+.header{text-align:center;padding:24px 16px 18px;position:relative;overflow:hidden;}
+.deco{position:absolute;font-size:52px;opacity:.1;pointer-events:none;user-select:none;}
+.d1{top:-4px;left:4%;transform:rotate(-18deg);}
+.d2{top:0;right:4%;transform:rotate(14deg);}
+.d3{bottom:0;left:18%;font-size:34px;}
+.d4{bottom:0;right:18%;font-size:34px;}
+.badge{
+  display:inline-block;background:linear-gradient(135deg,#7C3AED,#EC4899);
+  color:#fff;padding:3px 14px;border-radius:20px;font-size:11px;
+  font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:9px;
+}
+.header h1{font-size:24px;font-weight:900;color:#1E1B4B;line-height:1.3;}
+.header h1 em{font-style:normal;color:#7C3AED;}
+.header p{color:#6B7280;font-size:13px;margin-top:5px;}
+
+/* ── CARDS ── */
+.panel{background:#fff;border-radius:14px;padding:16px 18px;
+  margin-bottom:12px;box-shadow:0 3px 16px rgba(109,40,217,.1);}
+
+/* ── FILTER CHIPS ── */
+.flabel{font-size:10px;font-weight:700;color:#9CA3AF;
+  letter-spacing:1.2px;text-transform:uppercase;margin-bottom:8px;}
+.frow{margin-bottom:12px;}
+.frow:last-child{margin-bottom:0;}
+.chips{display:flex;flex-wrap:wrap;gap:6px;align-items:center;}
+.chip{
+  display:inline-flex;align-items:center;gap:4px;padding:5px 12px;
+  border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;
+  background:#F1F5F9;color:#64748B;user-select:none;
+  transition:all .15s;border:none;outline:none;
+}
+.chip:hover{transform:translateY(-1px);}
+.chip.on{color:#fff;}
+.chip-reset{font-size:11px;background:#EDE9FE;color:#6D28D9;}
+.chip-reset.on{background:#6D28D9;color:#fff;}
+
+/* ── TOGGLE ── */
+.toggle-row{display:flex;align-items:center;gap:9px;}
+.tog{position:relative;width:42px;height:22px;flex-shrink:0;}
+.tog input{opacity:0;width:0;height:0;}
+.slot{
+  position:absolute;top:0;left:0;right:0;bottom:0;
+  background:#D1D5DB;border-radius:22px;cursor:pointer;transition:.2s;
+}
+.slot:before{
+  content:'';position:absolute;width:16px;height:16px;
+  left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s;
+}
+.tog input:checked+.slot{background:#7C3AED;}
+.tog input:checked+.slot:before{transform:translateX(20px);}
+.tog-lbl{font-size:13px;font-weight:600;color:#374151;}
+
+/* ── LEGEND ── */
+.legend{display:flex;flex-wrap:wrap;gap:8px 14px;}
+.lgitem{display:flex;align-items:center;gap:5px;font-size:12px;color:#374151;}
+.lgdot{width:11px;height:11px;border-radius:3px;flex-shrink:0;}
+.lgsep{width:1px;height:14px;background:#E5E7EB;margin:0 4px;}
+
+/* ── TIMELINE WRAPPER ── */
+.tl-wrap{overflow-x:auto;border-radius:12px;max-width:100%;
+  -webkit-overflow-scrolling:touch;}
+.tl-hint{font-size:11px;color:#9CA3AF;margin-bottom:6px;display:flex;align-items:center;gap:5px;}
+
+/* ── TIMELINE TABLE ── */
+.tl{
+  border-collapse:collapse;
+  font-size:11px;
+  min-width:800px;
+}
+.tl th, .tl td{
+  border:1px solid #E5E7EB;
+  white-space:nowrap;
+  vertical-align:top;
+}
+
+/* Month header row */
+.tl .th-month{
+  background:#7C3AED;color:#fff;
+  text-align:center;font-size:11px;font-weight:700;
+  padding:5px 4px;letter-spacing:.5px;
+  white-space:nowrap;
+}
+.tl .th-month.alt{background:#5B21B6;}
+
+/* Week header row */
+.tl .th-week{
+  background:#F5F3FF;color:#4C1D95;
+  text-align:center;font-weight:700;font-size:10px;
+  padding:4px 6px;min-width:82px;
+  line-height:1.4;
+}
+.th-week .wk-dates{font-weight:400;color:#7C3AED;font-size:9px;}
+
+/* Market label column */
+.tl .td-market{
+  background:#fff;color:#1F2937;font-weight:700;font-size:12px;
+  padding:8px 10px;
+  position:sticky;left:0;z-index:5;
+  min-width:100px;max-width:110px;
+  white-space:nowrap;
+  border-right:2px solid #D1D5DB;
+}
+.tl .th-corner{
+  background:#7C3AED;
+  position:sticky;left:0;z-index:10;
+  border-right:2px solid #5B21B6;
+  min-width:100px;
+}
+.tl .th-corner-wk{
+  background:#F5F3FF;
+  position:sticky;left:0;z-index:10;
+  border-right:2px solid #D1D5DB;
+}
+
+/* Empty cell */
+.tl .td-empty{
+  background:#FAFAFA;text-align:center;color:#D1D5DB;
+  font-size:10px;vertical-align:middle;padding:4px 2px;
+}
+
+/* Holiday cell */
+.tl .td-hol{
+  vertical-align:top;padding:5px 7px;
+  cursor:default;
+  transition:filter .15s;
+}
+.tl .td-hol:hover{filter:brightness(.93);}
+.hol-name{
+  font-weight:700;font-size:11px;
+  line-height:1.35;white-space:normal;
+  word-break:break-word;
+  max-width:200px;
+}
+.hol-badge{
+  display:inline-block;margin-top:4px;
+  padding:1px 6px;border-radius:8px;
+  font-size:10px;font-weight:800;
+  white-space:nowrap;
+}
+
+/* Duration backgrounds – school (solid) */
+.sch-d1 {background:var(--d1-bg);}  .sch-d1 .hol-name{color:var(--d1-tc);}  .sch-d1 .hol-badge{background:var(--d1-tc);color:#fff;}
+.sch-d4 {background:var(--d4-bg);}  .sch-d4 .hol-name{color:var(--d4-tc);}  .sch-d4 .hol-badge{background:var(--d4-tc);color:#fff;}
+.sch-d7 {background:var(--d7-bg);}  .sch-d7 .hol-name{color:var(--d7-tc);}  .sch-d7 .hol-badge{background:var(--d7-tc);color:#fff;}
+.sch-d14{background:var(--d14-bg);} .sch-d14 .hol-name{color:var(--d14-tc);} .sch-d14 .hol-badge{background:var(--d14-tc);color:#fff;}
+
+/* Duration backgrounds – public (muted) */
+.pub-d1 {background:var(--d1-pub);}  .pub-d1 .hol-name{color:#7C3AED;opacity:.8;}  .pub-d1 .hol-badge{background:#DDD6FE;color:var(--d1-tc);}
+.pub-d4 {background:var(--d4-pub);}  .pub-d4 .hol-name{color:#B45309;opacity:.8;}  .pub-d4 .hol-badge{background:#FDE68A;color:var(--d4-tc);}
+.pub-d7 {background:var(--d7-pub);}  .pub-d7 .hol-name{color:#C2410C;opacity:.8;}  .pub-d7 .hol-badge{background:#FED7AA;color:var(--d7-tc);}
+.pub-d14{background:var(--d14-pub);} .pub-d14 .hol-name{color:#15803D;opacity:.8;} .pub-d14 .hol-badge{background:#BBF7D0;color:var(--d14-tc);}
+
+/* ── DETAIL CARDS ── */
+.sec-title{
+  font-size:15px;font-weight:800;color:#1E1B4B;
+  margin-bottom:10px;display:flex;align-items:center;gap:8px;
+}
+.count-pill{
+  background:#EDE9FE;color:#6D28D9;
+  padding:1px 9px;border-radius:10px;font-size:11px;font-weight:700;
+}
+.cards-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(270px,1fr));
+  gap:10px;margin-bottom:18px;
+}
+.card{
+  background:#fff;border-radius:12px;padding:13px 14px;
+  box-shadow:0 2px 10px rgba(0,0,0,.07);
+  border-left:4px solid;transition:transform .15s;
+}
+.card:hover{transform:translateY(-2px);}
+.card-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
+.mkt-tag{display:flex;align-items:center;gap:5px;}
+.mkt-flag{font-size:16px;}
+.mkt-nm{font-size:11px;font-weight:700;color:#9CA3AF;}
+.dur-chip{padding:2px 9px;border-radius:9px;font-size:11px;font-weight:800;white-space:nowrap;}
+.dc-1 {background:var(--d1-bg);color:var(--d1-tc);}
+.dc-4 {background:var(--d4-bg);color:var(--d4-tc);}
+.dc-7 {background:var(--d7-bg);color:var(--d7-tc);}
+.dc-14{background:var(--d14-bg);color:var(--d14-tc);}
+.card-name{font-size:14px;font-weight:800;color:#111827;line-height:1.35;}
+.card-date{font-size:12px;color:#9CA3AF;margin-top:3px;}
+.card-note{font-size:10px;color:#C4B5FD;margin-top:3px;}
+.card-type{
+  display:inline-block;margin-top:7px;
+  padding:2px 8px;border-radius:7px;font-size:10px;font-weight:700;
+}
+.ct-sch{background:#DBEAFE;color:#1D4ED8;}
+.ct-pub{background:#FEF3C7;color:#92400E;}
+.ct-both{background:#FCE7F3;color:#9D174D;}
+
+/* Empty state */
+.empty{text-align:center;padding:40px 20px;color:#D1D5DB;}
+.empty-icon{font-size:40px;margin-bottom:8px;}
+
+/* Scrollbar */
+::-webkit-scrollbar{height:5px;width:5px;}
+::-webkit-scrollbar-track{background:#F1F5F9;border-radius:3px;}
+::-webkit-scrollbar-thumb{background:#C4B5FD;border-radius:3px;}
+</style>
+</head>
+<body>
+
+<!-- LANG SWITCH -->
+<button class="lang-switch" id="lang-btn" onclick="toggleLang()">中文</button>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="deco d1">✈️</div><div class="deco d2">⭐</div>
+  <div class="deco d3">🏖️</div><div class="deco d4">🎒</div>
+  <div class="badge" id="hdr-badge">Trip.com Family · 2026</div>
+  <h1 id="hdr-title">✈️ Family Travel <em>Holiday Calendar</em></h1>
+  <p id="hdr-sub">8 Markets · Public &amp; School Holidays · Full Year At A Glance</p>
+</div>
+
+<!-- FILTERS -->
+<div class="panel">
+  <div class="frow">
+    <div class="flabel" id="lbl-mkt">🌏 Market</div>
+    <div class="chips" id="mkt-chips">
+      <button class="chip chip-reset on" id="chip-all-mkt" onclick="resetMarkets()">All</button>
+    </div>
+  </div>
+  <div class="frow">
+    <div class="flabel" id="lbl-mon">📅 Month</div>
+    <div class="chips" id="mon-chips">
+      <button class="chip chip-reset on" id="chip-all-mon" onclick="resetMonths()">All Year</button>
+    </div>
+  </div>
+  <div class="frow">
+    <div class="toggle-row">
+      <label class="tog">
+        <input type="checkbox" id="sch-tog">
+        <span class="slot"></span>
+      </label>
+      <span class="tog-lbl" id="lbl-sch-tog">🎒 School holidays only</span>
+    </div>
+  </div>
+</div>
+
+<!-- LEGEND -->
+<div class="panel" style="padding:12px 18px;">
+  <div class="flabel" id="lbl-dur" style="margin-bottom:8px">⏱ Holiday Duration</div>
+  <div class="legend">
+    <div class="lgitem"><div class="lgdot" style="background:#DDD6FE"></div><span id="leg-d1">1–3 days</span></div>
+    <div class="lgitem"><div class="lgdot" style="background:#FDE68A"></div><span id="leg-d4">4–7 days</span></div>
+    <div class="lgitem"><div class="lgdot" style="background:#FDBA74"></div><span id="leg-d7">7–14 days</span></div>
+    <div class="lgitem"><div class="lgdot" style="background:#86EFAC"></div><span id="leg-d14">14+ days 🌴</span></div>
+    <div class="lgsep"></div>
+    <div class="lgitem"><div class="lgdot" style="background:#DBEAFE;border:1px solid #93C5FD"></div><span id="leg-sch">School holiday</span></div>
+    <div class="lgitem"><div class="lgdot" style="background:#FEF3C7;border:1px solid #FCD34D"></div><span id="leg-pub">Public holiday (muted)</span></div>
+  </div>
+</div>
+
+<!-- TIMELINE -->
+<div class="panel" style="padding:14px 16px;">
+  <div class="tl-hint">📌 <span id="hint-scroll">Scroll horizontally to view full year</span> &nbsp;·&nbsp; <b id="hint-filter">Click market / month chips above to filter rows &amp; columns</b></div>
+  <div class="tl-wrap">
+    <table class="tl" id="tl-table"></table>
+  </div>
+</div>
+
+<!-- DETAIL CARDS -->
+<div id="cards-section"></div>
+
+<script>
+// ═══════════════════════════════════════════════
+//  TRANSLATIONS
+// ═══════════════════════════════════════════════
+const TRANS = {
+  en: {
+    pageTitle:   '✈️ Family Holiday Calendar 2026',
+    badge:       'Trip.com Family · 2026',
+    title:       '✈️ Family Travel <em>Holiday Calendar</em>',
+    subtitle:    '8 Markets · Public & School Holidays · Full Year At A Glance',
+    lblMkt:      '🌏 Market',
+    lblMon:      '📅 Month',
+    allMkt:      'All',
+    allYear:     'All Year',
+    schTog:      '🎒 School holidays only',
+    lblDur:      '⏱ Holiday Duration',
+    legD1:       '1–3 days',
+    legD4:       '4–7 days',
+    legD7:       '7–14 days',
+    legD14:      '14+ days 🌴',
+    legSch:      'School holiday',
+    legPub:      'Public holiday (muted)',
+    hintScroll:  'Scroll horizontally to view full year',
+    hintFilter:  'Click market / month chips above to filter rows & columns',
+    noData:      'No data to display',
+    noHoliday:   'No holidays match your filters',
+    holidays:    'holidays',
+    school:      'school',
+    schType:     '🎒 School',
+    pubType:     '🎌 Public',
+    bothType:    '🎌🎒 Both',
+    mktCorner:   'Market',
+    wkLabel:     'Wk',
+    dur: { '1':'1–3d', '4':'4–7d', '7':'7–14d', '14':'14d+' },
+    months:      ['','January','February','March','April','May','June',
+                  'July','August','September','October','November','December'],
+    monthsAbbr:  ['','Jan','Feb','Mar','Apr','May','Jun',
+                  'Jul','Aug','Sep','Oct','Nov','Dec'],
+  },
+  zh: {
+    pageTitle:   '✈️ 亲子旅行节假日日历 2026',
+    badge:       'Trip.com 亲子频道 · 2026',
+    title:       '✈️ 亲子旅行<em>节假日日历</em>',
+    subtitle:    '8个市场 · 公共假期与学校假期 · 全年一览',
+    lblMkt:      '🌏 市场',
+    lblMon:      '📅 月份',
+    allMkt:      '全部',
+    allYear:     '全年',
+    schTog:      '🎒 仅显示学校假期',
+    lblDur:      '⏱ 假期时长',
+    legD1:       '1–3天',
+    legD4:       '4–7天',
+    legD7:       '7–14天',
+    legD14:      '14天以上 🌴',
+    legSch:      '学校假期',
+    legPub:      '公共假期',
+    hintScroll:  '横向滚动查看全年',
+    hintFilter:  '点击上方市场/月份筛选行与列',
+    noData:      '暂无数据',
+    noHoliday:   '没有符合筛选条件的假期',
+    holidays:    '个假期',
+    school:      '学校',
+    schType:     '🎒 学校假期',
+    pubType:     '🎌 公共假期',
+    bothType:    '🎌🎒 双重假期',
+    mktCorner:   '市场',
+    wkLabel:     '周',
+    dur: { '1':'1-3天', '4':'4-7天', '7':'7-14天', '14':'14天+' },
+    months:      ['','一月','二月','三月','四月','五月','六月',
+                  '七月','八月','九月','十月','十一月','十二月'],
+    monthsAbbr:  ['','1月','2月','3月','4月','5月','6月',
+                  '7月','8月','9月','10月','11月','12月'],
+  }
+};
+
+// ═══════════════════════════════════════════════
+//  CONSTANTS
+// ═══════════════════════════════════════════════
+
+const MARKETS = [
+  {id:'HK', name:'Hong Kong',    name_zh:'香港',      flag:'🇭🇰', color:'#E53E6D'},
+  {id:'TW', name:'Taiwan',       name_zh:'台湾',      flag:'🇹🇼', color:'#0D9488'},
+  {id:'MY', name:'Malaysia',     name_zh:'马来西亚',  flag:'🇲🇾', color:'#2563EB'},
+  {id:'SG', name:'Singapore',    name_zh:'新加坡',    flag:'🇸🇬', color:'#16A34A'},
+  {id:'KR', name:'Korea',        name_zh:'韩国',      flag:'🇰🇷', color:'#D97706'},
+  {id:'TH', name:'Thailand',     name_zh:'泰国',      flag:'🇹🇭', color:'#7C3AED'},
+  {id:'ID', name:'Indonesia',    name_zh:'印度尼西亚',flag:'🇮🇩', color:'#DC2626'},
+  {id:'JP', name:'Japan',        name_zh:'日本',      flag:'🇯🇵', color:'#DB2777'},
+];
+
+const MON_DAYS = [0,31,28,31,30,31,30,31,31,30,31,30,31]; // 2026 (not leap)
+
+// Generate week segments: {id, month, wk, s(start day), e(end day)}
+const WEEKS = [];
+for (let m=1; m<=12; m++){
+  let wk=1, d=1;
+  while(d <= MON_DAYS[m]){
+    const e = Math.min(d+6, MON_DAYS[m]);
+    WEEKS.push({id:`${m}-${wk}`, month:m, wk, s:d, e});
+    d+=7; wk++;
+  }
+}
+
+// ═══════════════════════════════════════════════
+//  HOLIDAY DATA
+// ═══════════════════════════════════════════════
+// type: 'school' | 'public' | 'both'
+// start/end: [month, day]
+
+const HOLIDAYS = [
+  // ── HK ──
+  {market:'HK', name:"New Year's Day",              name_zh:'元旦',                   start:[1,1],  end:[1,1],  days:1,  type:'public'},
+  {market:'HK', name:"New Year School Break",        name_zh:'元旦学校假期',            start:[1,1],  end:[1,4],  days:4,  type:'school',  note:'Usually extended to Jan 4'},
+  {market:'HK', name:'Lunar New Year',               name_zh:'农历新年',               start:[2,17], end:[2,19], days:3,  type:'both'},
+  {market:'HK', name:'Easter & Spring Break',        name_zh:'复活节及春假',            start:[4,3],  end:[4,11], days:9,  type:'school',  note:'Public holidays Apr 3–7; schools typically extend to Apr 11'},
+  {market:'HK', name:'Ching Ming Festival',          name_zh:'清明节',                 start:[4,7],  end:[4,7],  days:1,  type:'public'},
+  {market:'HK', name:'Labour Day',                   name_zh:'劳动节',                 start:[5,1],  end:[5,1],  days:1,  type:'public'},
+  {market:'HK', name:"Buddha's Birthday",            name_zh:'佛诞',                   start:[5,25], end:[5,25], days:1,  type:'public'},
+  {market:'HK', name:'Dragon Boat Festival',         name_zh:'端午节',                 start:[6,19], end:[6,19], days:1,  type:'public'},
+  {market:'HK', name:'HKSAR Establishment Day',      name_zh:'香港回归纪念日',          start:[7,1],  end:[7,1],  days:1,  type:'public'},
+  {market:'HK', name:'Summer Vacation',              name_zh:'暑假',                   start:[7,10], end:[8,31], days:53, type:'school',  note:'~7.5 weeks; varies by school'},
+  {market:'HK', name:'Mid-Autumn Festival',          name_zh:'中秋节',                 start:[9,26], end:[9,26], days:1,  type:'public'},
+  {market:'HK', name:'National Day',                 name_zh:'国庆日',                 start:[10,1], end:[10,1], days:1,  type:'public'},
+  {market:'HK', name:'Chung Yeung Festival',         name_zh:'重阳节',                 start:[10,19],end:[10,19],days:1,  type:'public'},
+  {market:'HK', name:'Christmas',                    name_zh:'圣诞节',                 start:[12,25],end:[12,26],days:2,  type:'public'},
+  {market:'HK', name:'Christmas School Break',       name_zh:'圣诞学校假期',            start:[12,22],end:[12,31],days:10, type:'school',  note:'Continues to Jan 1'},
+
+  // ── TW ──
+  {market:'TW', name:"New Year's Day",               name_zh:'元旦',                   start:[1,1],  end:[1,1],  days:1,  type:'public'},
+  {market:'TW', name:'Winter Vacation (incl. CNY)',  name_zh:'寒假（含春节）',          start:[1,21], end:[2,22], days:33, type:'school',  note:'Uninterrupted break Jan 24–Feb 22'},
+  {market:'TW', name:'Spring Festival Holiday',      name_zh:'春节假期',               start:[2,16], end:[2,20], days:5,  type:'public'},
+  {market:'TW', name:'Peace Memorial Day',           name_zh:'和平纪念日',             start:[2,28], end:[2,28], days:1,  type:'public'},
+  {market:'TW', name:"Children's Day & Qingming",    name_zh:'儿童节及清明节',          start:[4,4],  end:[4,5],  days:2,  type:'public'},
+  {market:'TW', name:'Labour Day',                   name_zh:'劳动节',                 start:[5,1],  end:[5,1],  days:1,  type:'public'},
+  {market:'TW', name:'Dragon Boat Festival',         name_zh:'端午节',                 start:[6,19], end:[6,19], days:1,  type:'public'},
+  {market:'TW', name:'Summer Vacation',              name_zh:'暑假',                   start:[7,1],  end:[8,30], days:61, type:'school'},
+  {market:'TW', name:'Mid-Autumn Festival',          name_zh:'中秋节',                 start:[9,25], end:[9,25], days:1,  type:'public'},
+  {market:'TW', name:"Teachers' Day (new)",          name_zh:'教师节（新增）',          start:[9,28], end:[9,28], days:1,  type:'public', note:'New public holiday from 2025'},
+  {market:'TW', name:'National Day',                 name_zh:'国庆日',                 start:[10,10],end:[10,10],days:1,  type:'public'},
+  {market:'TW', name:'Taiwan Retrocession Day (new)',name_zh:'台湾光复节（新增）',      start:[10,25],end:[10,25],days:1,  type:'public', note:'New public holiday from 2025'},
+  {market:'TW', name:'Constitution Day (new)',       name_zh:'行宪纪念日（新增）',      start:[12,25],end:[12,25],days:1,  type:'public', note:'New public holiday from 2025'},
+
+  // ── MY (Group B – majority of states) ──
+  {market:'MY', name:"New Year's Day",               name_zh:'元旦',                   start:[1,1],  end:[1,1],  days:1,  type:'public'},
+  {market:'MY', name:'Chinese New Year',             name_zh:'农历新年',               start:[2,17], end:[2,18], days:2,  type:'public'},
+  {market:'MY', name:'CNY School Holiday',           name_zh:'春节学校假期',            start:[2,16], end:[2,20], days:3,  type:'school',  note:'Group B: Feb 16, 19–20'},
+  {market:'MY', name:'Hari Raya Aidilfitri (est.)',  name_zh:'开斋节（估算）',          start:[3,21], end:[3,22], days:2,  type:'public',  note:'⚠️ Islamic calendar, subject to moon sighting'},
+  {market:'MY', name:'Term 1 Break + Hari Raya',     name_zh:'第一学期假期 + 开斋节',  start:[3,19], end:[3,29], days:11, type:'school',  note:'Group B: Eid holiday Mar 19–22 + term break Mar 21–29'},
+  {market:'MY', name:'Labour Day',                   name_zh:'劳动节',                 start:[5,1],  end:[5,1],  days:1,  type:'public'},
+  {market:'MY', name:'Mid-Year School Break',        name_zh:'年中学校假期',            start:[5,23], end:[6,7],  days:16, type:'school',  note:'Group B, ~2.5 weeks'},
+  {market:'MY', name:'Hari Raya Haji (est.)',        name_zh:'哈吉节（估算）',          start:[5,27], end:[5,28], days:2,  type:'public',  note:'⚠️ Islamic calendar'},
+  {market:'MY', name:'Wesak Day',                    name_zh:'卫塞节',                 start:[5,31], end:[5,31], days:1,  type:'public'},
+  {market:'MY', name:"Yang di-Pertuan Agong's B'day",name_zh:'最高元首华诞',           start:[6,1],  end:[6,1],  days:1,  type:'public'},
+  {market:'MY', name:'Merdeka Day',                  name_zh:'国庆日',                 start:[8,31], end:[8,31], days:1,  type:'public'},
+  {market:'MY', name:'Term 2 School Break',          name_zh:'第二学期假期',            start:[8,29], end:[9,6],  days:9,  type:'school',  note:'Group B'},
+  {market:'MY', name:'Malaysia Day',                 name_zh:'马来西亚日',             start:[9,16], end:[9,16], days:1,  type:'public'},
+  {market:'MY', name:'Deepavali',                    name_zh:'屠妖节',                 start:[11,8], end:[11,8], days:1,  type:'public'},
+  {market:'MY', name:'Year-End School Holiday',      name_zh:'年末学校假期',            start:[12,5], end:[12,31],days:27, type:'school',  note:'Group B, ~4 weeks'},
+  {market:'MY', name:'Christmas',                    name_zh:'圣诞节',                 start:[12,25],end:[12,25],days:1,  type:'public'},
+
+  // ── SG ──
+  {market:'SG', name:"New Year's Day",               name_zh:'元旦',                   start:[1,1],  end:[1,1],  days:1,  type:'public'},
+  {market:'SG', name:'Chinese New Year',             name_zh:'农历新年',               start:[2,17], end:[2,18], days:2,  type:'public'},
+  {market:'SG', name:'School Term I–II Break',       name_zh:'第一至二学期假期',        start:[3,13], end:[3,23], days:11, type:'school',  note:'MOE official, 11 days'},
+  {market:'SG', name:'Hari Raya Puasa (est.)',       name_zh:'开斋节（估算）',          start:[3,21], end:[3,21], days:1,  type:'public',  note:'⚠️ School in-lieu Mar 23'},
+  {market:'SG', name:'Good Friday',                  name_zh:'耶稣受难日',             start:[4,3],  end:[4,3],  days:1,  type:'public'},
+  {market:'SG', name:'Labour Day',                   name_zh:'劳动节',                 start:[5,1],  end:[5,1],  days:1,  type:'public'},
+  {market:'SG', name:'Hari Raya Haji (est.)',        name_zh:'哈吉节（估算）',          start:[5,27], end:[5,27], days:1,  type:'public',  note:'⚠️ Islamic calendar'},
+  {market:'SG', name:'Mid-Year School Break',        name_zh:'年中学校假期',            start:[5,29], end:[6,29], days:32, type:'school',  note:'MOE official, ~4.5 weeks'},
+  {market:'SG', name:'Vesak Day',                    name_zh:'卫塞节',                 start:[5,31], end:[5,31], days:1,  type:'public',  note:'In-lieu Jun 1'},
+  {market:'SG', name:'Youth Day',                    name_zh:'青年节',                 start:[7,6],  end:[7,6],  days:1,  type:'school'},
+  {market:'SG', name:'National Day',                 name_zh:'国庆日',                 start:[8,9],  end:[8,9],  days:1,  type:'public',  note:'In-lieu Aug 10'},
+  {market:'SG', name:'School Term III–IV Break',     name_zh:'第三至四学期假期',        start:[9,4],  end:[9,14], days:11, type:'school',  note:'MOE official, 11 days'},
+  {market:'SG', name:'Deepavali',                    name_zh:'屠妖节',                 start:[11,8], end:[11,8], days:1,  type:'public',  note:'In-lieu Nov 9'},
+  {market:'SG', name:'Year-End School Holiday',      name_zh:'年末学校假期',            start:[11,20],end:[12,31],days:42, type:'school',  note:'MOE official, ~6 weeks'},
+  {market:'SG', name:'Christmas',                    name_zh:'圣诞节',                 start:[12,25],end:[12,25],days:1,  type:'public'},
+
+  // ── KR ──
+  {market:'KR', name:"New Year's Day",               name_zh:'元旦',                   start:[1,1],  end:[1,1],  days:1,  type:'public'},
+  {market:'KR', name:'Spring Break (year transition)',name_zh:'春假（学年交接）',        start:[2,10], end:[3,1],  days:19, type:'school',  note:'~2–3 weeks; varies by school. New school year starts Mar'},
+  {market:'KR', name:'Seollal (Lunar New Year)',     name_zh:'春节（农历新年）',         start:[2,16], end:[2,18], days:3,  type:'public'},
+  {market:'KR', name:'Independence Movement Day',    name_zh:'三一独立运动纪念日',      start:[3,1],  end:[3,1],  days:1,  type:'public',  note:'In-lieu Mar 2'},
+  {market:'KR', name:"Workers' Day (new official)",  name_zh:'劳动节（新增）',          start:[5,1],  end:[5,1],  days:1,  type:'public',  note:'New official public holiday from 2026'},
+  {market:'KR', name:"Children's Day",               name_zh:'儿童节',                 start:[5,5],  end:[5,5],  days:1,  type:'public'},
+  {market:'KR', name:"Buddha's Birthday",            name_zh:'佛诞',                   start:[5,24], end:[5,24], days:1,  type:'public',  note:'In-lieu May 25'},
+  {market:'KR', name:'Local Election Day',           name_zh:'地方选举日',             start:[6,3],  end:[6,3],  days:1,  type:'public',  note:'Every 4 years'},
+  {market:'KR', name:'Constitution Day (reinstated)',name_zh:'制宪节（恢复）',          start:[7,17], end:[7,17], days:1,  type:'public'},
+  {market:'KR', name:'Summer Vacation',              name_zh:'暑假',                   start:[7,20], end:[8,20], days:32, type:'school',  note:'~4 weeks; varies by school'},
+  {market:'KR', name:'Liberation Day',               name_zh:'光复节',                 start:[8,15], end:[8,15], days:1,  type:'public',  note:'In-lieu Aug 17'},
+  {market:'KR', name:'Chuseok (Korean Thanksgiving)',name_zh:'秋夕（韩国感恩节）',      start:[9,24], end:[9,26], days:3,  type:'public'},
+  {market:'KR', name:'National Foundation Day',      name_zh:'开天节',                 start:[10,3], end:[10,3], days:1,  type:'public',  note:'In-lieu Oct 5'},
+  {market:'KR', name:'Hangul Day',                   name_zh:'韩文节',                 start:[10,9], end:[10,9], days:1,  type:'public'},
+  {market:'KR', name:'Christmas',                    name_zh:'圣诞节',                 start:[12,25],end:[12,25],days:1,  type:'public'},
+  {market:'KR', name:'Winter Vacation (Dec portion)',name_zh:'寒假（12月部分）',        start:[12,20],end:[12,31],days:12, type:'school',  note:'Extends to ~Jan 20; total ~4–5 weeks'},
+
+  // ── TH ──
+  {market:'TH', name:"New Year's Day",               name_zh:'元旦',                   start:[1,1],  end:[1,1],  days:1,  type:'public'},
+  {market:'TH', name:'Makha Bucha Day',              name_zh:'万佛节',                 start:[3,3],  end:[3,3],  days:1,  type:'public'},
+  {market:'TH', name:'Summer Vacation (Main)',       name_zh:'暑假（主）',              start:[3,31], end:[5,3],  days:34, type:'school',  note:'Thai public school year is May–Mar. Main vacation Mar–May'},
+  {market:'TH', name:'Chakri Memorial Day',          name_zh:'查克里纪念日',            start:[4,6],  end:[4,6],  days:1,  type:'public'},
+  {market:'TH', name:'Songkran Festival',            name_zh:'宋干节',                 start:[4,13], end:[4,15], days:3,  type:'public'},
+  {market:'TH', name:'Labour Day',                   name_zh:'劳动节',                 start:[5,1],  end:[5,1],  days:1,  type:'public'},
+  {market:'TH', name:'Coronation Day',               name_zh:'加冕纪念日',             start:[5,4],  end:[5,4],  days:1,  type:'public'},
+  {market:'TH', name:'Visakha Bucha Day',            name_zh:'维沙卡节',               start:[5,31], end:[5,31], days:1,  type:'public',  note:'In-lieu Jun 1'},
+  {market:'TH', name:"King Rama X's Birthday",       name_zh:'玛哈·哇集拉隆功国王诞辰', start:[7,28], end:[7,28], days:1,  type:'public'},
+  {market:'TH', name:'Asahna Bucha Day',             name_zh:'亚萨暮日',               start:[7,29], end:[7,29], days:1,  type:'public'},
+  {market:'TH', name:"Mother's Day",                 name_zh:'母亲节',                 start:[8,12], end:[8,12], days:1,  type:'public'},
+  {market:'TH', name:'Semester Break',               name_zh:'学期假期',               start:[10,8], end:[10,30],days:23, type:'school',  note:'Between semester 1 and 2, ~3 weeks'},
+  {market:'TH', name:'King Bhumibol Memorial Day',   name_zh:'普密蓬国王纪念日',        start:[10,13],end:[10,13],days:1,  type:'public'},
+  {market:'TH', name:'Chulalongkorn Memorial Day',   name_zh:'朱拉隆功纪念日',          start:[10,23],end:[10,23],days:1,  type:'public'},
+  {market:'TH', name:"King Bhumibol's Birthday",     name_zh:'普密蓬国王诞辰',          start:[12,5], end:[12,5], days:1,  type:'public',  note:'In-lieu Dec 7'},
+  {market:'TH', name:'Constitution Day',             name_zh:'宪法日',                 start:[12,10],end:[12,10],days:1,  type:'public'},
+  {market:'TH', name:"New Year's Eve",               name_zh:'新年前夕',               start:[12,31],end:[12,31],days:1,  type:'public'},
+
+  // ── ID ──
+  {market:'ID', name:"New Year's Day",               name_zh:'元旦',                   start:[1,1],  end:[1,1],  days:1,  type:'public'},
+  {market:'ID', name:"Isra Mi'raj",                  name_zh:'登宵节',                 start:[1,16], end:[1,16], days:1,  type:'public'},
+  {market:'ID', name:'Chinese New Year (Imlek)',      name_zh:'农历新年',               start:[2,17], end:[2,17], days:1,  type:'public'},
+  {market:'ID', name:'Nyepi (Balinese New Year)',     name_zh:'静寂日（巴厘新年）',      start:[3,19], end:[3,19], days:1,  type:'public'},
+  {market:'ID', name:'Idul Fitri + Cuti Bersama (est.)',name_zh:'开斋节 + 共同假期（估算）',start:[3,20],end:[3,24],days:5, type:'both',   note:'⚠️ Mar 21–22 public holiday + joint leave; ~5-day block'},
+  {market:'ID', name:'Eid School Holiday',           name_zh:'开斋节学校假期',          start:[3,19], end:[3,26], days:8,  type:'school',  note:'Includes 1 day before & after'},
+  {market:'ID', name:'Good Friday',                  name_zh:'耶稣受难日',             start:[4,3],  end:[4,3],  days:1,  type:'public'},
+  {market:'ID', name:'Easter Sunday',                name_zh:'复活节',                 start:[4,5],  end:[4,5],  days:1,  type:'public'},
+  {market:'ID', name:'Labour Day',                   name_zh:'劳动节',                 start:[5,1],  end:[5,1],  days:1,  type:'public'},
+  {market:'ID', name:'Ascension of Jesus',           name_zh:'耶稣升天节',             start:[5,14], end:[5,14], days:1,  type:'public'},
+  {market:'ID', name:'Idul Adha (est.)',              name_zh:'宰牲节（估算）',          start:[5,27], end:[5,27], days:1,  type:'public',  note:'⚠️ Islamic calendar'},
+  {market:'ID', name:'Vesak Day',                    name_zh:'卫塞节',                 start:[5,31], end:[5,31], days:1,  type:'public'},
+  {market:'ID', name:'Pancasila Day',                name_zh:'建国五基日',             start:[6,1],  end:[6,1],  days:1,  type:'public'},
+  {market:'ID', name:'Islamic New Year',             name_zh:'伊斯兰新年',             start:[6,16], end:[6,16], days:1,  type:'public'},
+  {market:'ID', name:'Year-End School Holiday',      name_zh:'年末学校假期',            start:[6,22], end:[7,3],  days:12, type:'school',  note:'Jakarta reference; varies by province'},
+  {market:'ID', name:'Independence Day',             name_zh:'独立日',                 start:[8,17], end:[8,17], days:1,  type:'public'},
+  {market:'ID', name:"Prophet's Birthday (Maulid)",  name_zh:'先知诞辰（圣纪节）',      start:[8,25], end:[8,25], days:1,  type:'public'},
+  {market:'ID', name:'Semester 1 School Break',      name_zh:'第一学期假期',            start:[12,22],end:[12,31],days:10, type:'school',  note:'Extends to early Jan; varies by province'},
+  {market:'ID', name:'Christmas',                    name_zh:'圣诞节',                 start:[12,25],end:[12,25],days:1,  type:'public'},
+
+  // ── JP ──
+  {market:'JP', name:"New Year's Day",               name_zh:'元旦',                   start:[1,1],  end:[1,1],  days:1,  type:'public'},
+  {market:'JP', name:'Winter Break (Jan portion)',   name_zh:'寒假（1月部分）',          start:[1,1],  end:[1,7],  days:7,  type:'school',  note:'Winter break ~Dec 24–Jan 7; this is the 2026 portion'},
+  {market:'JP', name:'Coming-of-Age Day',            name_zh:'成人节',                 start:[1,12], end:[1,12], days:1,  type:'public'},
+  {market:'JP', name:'National Foundation Day',      name_zh:'建国纪念日',             start:[2,11], end:[2,11], days:1,  type:'public'},
+  {market:'JP', name:"Emperor's Birthday",           name_zh:'天皇诞辰',               start:[2,23], end:[2,23], days:1,  type:'public'},
+  {market:'JP', name:'Vernal Equinox Day',           name_zh:'春分日',                 start:[3,20], end:[3,20], days:1,  type:'public'},
+  {market:'JP', name:'Spring Break',                 name_zh:'春假',                   start:[3,25], end:[4,9],  days:16, type:'school'},
+  {market:'JP', name:'Golden Week',                  name_zh:'黄金周',                 start:[4,29], end:[5,6],  days:8,  type:'public',  note:"Showa Day + Constitution Day + Greenery Day + Children's Day"},
+  {market:'JP', name:'Marine Day',                   name_zh:'海洋日',                 start:[7,20], end:[7,20], days:1,  type:'public'},
+  {market:'JP', name:'Summer Vacation',              name_zh:'暑假',                   start:[7,22], end:[8,26], days:36, type:'school'},
+  {market:'JP', name:'Mountain Day',                 name_zh:'山之日',                 start:[8,11], end:[8,11], days:1,  type:'public'},
+  {market:'JP', name:'Obon Festival',                name_zh:'盂兰盆节',               start:[8,13], end:[8,16], days:4,  type:'public',  note:'Not an official holiday, but a major travel peak'},
+  {market:'JP', name:'Silver Week',                  name_zh:'白银周',                 start:[9,21], end:[9,23], days:3,  type:'public',  note:'Respect for the Aged Day + Autumnal Equinox, 3-day weekend'},
+  {market:'JP', name:'Sports Day',                   name_zh:'体育日',                 start:[10,12],end:[10,12],days:1,  type:'public'},
+  {market:'JP', name:'Culture Day',                  name_zh:'文化日',                 start:[11,3], end:[11,3], days:1,  type:'public'},
+  {market:'JP', name:'Labor Thanksgiving Day',       name_zh:'勤劳感谢日',             start:[11,22],end:[11,22],days:1,  type:'public'},
+  {market:'JP', name:'Winter Break (Dec portion)',   name_zh:'寒假（12月部分）',        start:[12,24],end:[12,31],days:8,  type:'school',  note:'Extends to Jan 7; total ~15 days'},
+];
+
+// ═══════════════════════════════════════════════
+//  STATE
+// ═══════════════════════════════════════════════
+let lang = 'en';
+let selMkts = new Set(MARKETS.map(m=>m.id));
+let selMons = new Set([1,2,3,4,5,6,7,8,9,10,11,12]);
+let schoolOnly = false;
+
+// ═══════════════════════════════════════════════
+//  HELPERS
+// ═══════════════════════════════════════════════
+const dn = (m,d) => m*100+d;
+
+function t(k){ return TRANS[lang][k]; }
+function hname(h){ return lang==='zh' ? (h.name_zh||h.name) : h.name; }
+function mname(m){ return lang==='zh' ? m.name_zh : m.name; }
+
+function overlapsWeek(h, wk){
+  const hs=dn(h.start[0],h.start[1]), he=dn(h.end[0],h.end[1]);
+  const ws=dn(wk.month,wk.s),         we=dn(wk.month,wk.e);
+  return hs<=we && he>=ws;
+}
+
+function durCat(days){
+  if(days<=3)  return '1';
+  if(days<=7)  return '4';
+  if(days<=14) return '7';
+  return '14';
+}
+
+function fmtDate(s,e){
+  const abbr = t('monthsAbbr');
+  if(s[0]===e[0]&&s[1]===e[1]) return `${abbr[s[0]]} ${s[1]}`;
+  if(s[0]===e[0]) return `${abbr[s[0]]} ${s[1]}–${e[1]}`;
+  return `${abbr[s[0]]} ${s[1]} – ${abbr[e[0]]} ${e[1]}`;
+}
+
+function getMkt(id){ return MARKETS.find(m=>m.id===id); }
+
+// Build cells for one market row over visible weeks
+function buildCells(mktId, visWeeks){
+  const cells=[], used=new Set();
+  let i=0;
+  while(i<visWeeks.length){
+    const w=visWeeks[i];
+    const cands=HOLIDAYS.filter(h=>
+      h.market===mktId &&
+      !used.has(h) &&
+      overlapsWeek(h,w) &&
+      !(schoolOnly && h.type==='public')
+    ).sort((a,b)=>{
+      const r={school:0,both:1,public:2};
+      if(r[a.type]!==r[b.type]) return r[a.type]-r[b.type];
+      return b.days-a.days;
+    });
+    if(cands.length){
+      const h=cands[0];
+      used.add(h);
+      let span=0;
+      for(let j=i; j<visWeeks.length&&overlapsWeek(h,visWeeks[j]); j++) span++;
+      cells.push({hol:h, span});
+      i+=span;
+    } else {
+      cells.push({hol:null, span:1});
+      i++;
+    }
+  }
+  return cells;
+}
+
+// ═══════════════════════════════════════════════
+//  LANG TOGGLE
+// ═══════════════════════════════════════════════
+function toggleLang(){
+  lang = lang==='en' ? 'zh' : 'en';
+  document.getElementById('lang-btn').textContent = lang==='en' ? '中文' : 'English';
+  document.documentElement.lang = lang;
+  document.title = t('pageTitle');
+  updateStaticUI();
+  render();
+}
+
+function updateStaticUI(){
+  document.getElementById('hdr-badge').textContent  = t('badge');
+  document.getElementById('hdr-title').innerHTML    = t('title');
+  document.getElementById('hdr-sub').textContent    = t('subtitle');
+  document.getElementById('lbl-mkt').textContent    = t('lblMkt');
+  document.getElementById('lbl-mon').textContent    = t('lblMon');
+  document.getElementById('lbl-sch-tog').textContent= t('schTog');
+  document.getElementById('lbl-dur').textContent    = t('lblDur');
+  document.getElementById('leg-d1').textContent     = t('legD1');
+  document.getElementById('leg-d4').textContent     = t('legD4');
+  document.getElementById('leg-d7').textContent     = t('legD7');
+  document.getElementById('leg-d14').textContent    = t('legD14');
+  document.getElementById('leg-sch').textContent    = t('legSch');
+  document.getElementById('leg-pub').textContent    = t('legPub');
+  document.getElementById('hint-scroll').textContent= t('hintScroll');
+  document.getElementById('hint-filter').textContent= t('hintFilter');
+  updateChipLabels();
+}
+
+function updateChipLabels(){
+  document.getElementById('chip-all-mkt').textContent = t('allMkt');
+  document.getElementById('chip-all-mon').textContent = t('allYear');
+  document.querySelectorAll('#mkt-chips .chip:not(.chip-reset)').forEach(b=>{
+    const mkt = getMkt(b.dataset.id);
+    b.innerHTML = `${mkt.flag} ${mname(mkt)}`;
+  });
+  document.querySelectorAll('#mon-chips .chip:not(.chip-reset)').forEach(b=>{
+    b.textContent = t('monthsAbbr')[parseInt(b.dataset.mon)];
+  });
+}
+
+// ═══════════════════════════════════════════════
+//  INIT CHIPS
+// ═══════════════════════════════════════════════
+function initChips(){
+  const mc=document.getElementById('mkt-chips');
+  MARKETS.forEach(m=>{
+    const b=document.createElement('button');
+    b.className='chip on';
+    b.dataset.id=m.id;
+    b.style.background=m.color;
+    b.innerHTML=`${m.flag} ${m.name}`;
+    b.onclick=()=>toggleMkt(m.id,b,m.color);
+    mc.appendChild(b);
+  });
+  const mnc=document.getElementById('mon-chips');
+  for(let i=1;i<=12;i++){
+    const b=document.createElement('button');
+    b.className='chip on';
+    b.dataset.mon=i;
+    b.style.background='#7C3AED';
+    b.innerHTML=TRANS.en.monthsAbbr[i];
+    b.onclick=()=>toggleMon(i,b);
+    mnc.appendChild(b);
+  }
+  document.getElementById('sch-tog').addEventListener('change',function(){
+    schoolOnly=this.checked; render();
+  });
+}
+
+function resetMarkets(){
+  selMkts=new Set(MARKETS.map(m=>m.id));
+  document.querySelectorAll('#mkt-chips .chip:not(.chip-reset)').forEach(b=>{
+    const m=getMkt(b.dataset.id);
+    b.classList.add('on'); b.style.background=m.color; b.style.color='#fff';
+  });
+  render();
+}
+function resetMonths(){
+  selMons=new Set([1,2,3,4,5,6,7,8,9,10,11,12]);
+  document.querySelectorAll('#mon-chips .chip:not(.chip-reset)').forEach(b=>{
+    b.classList.add('on'); b.style.background='#7C3AED'; b.style.color='#fff';
+  });
+  render();
+}
+function toggleMkt(id,btn,color){
+  if(selMkts.has(id)){
+    if(selMkts.size===1) return;
+    selMkts.delete(id);
+    btn.classList.remove('on'); btn.style.background='#F1F5F9'; btn.style.color='#64748B';
+  } else {
+    selMkts.add(id);
+    btn.classList.add('on'); btn.style.background=color; btn.style.color='#fff';
+  }
+  render();
+}
+function toggleMon(m,btn){
+  if(selMons.has(m)){
+    if(selMons.size===1) return;
+    selMons.delete(m);
+    btn.classList.remove('on'); btn.style.background='#F1F5F9'; btn.style.color='#64748B';
+  } else {
+    selMons.add(m);
+    btn.classList.add('on'); btn.style.background='#7C3AED'; btn.style.color='#fff';
+  }
+  render();
+}
+
+// ═══════════════════════════════════════════════
+//  RENDER TIMELINE
+// ═══════════════════════════════════════════════
+function renderTimeline(){
+  const visWeeks = WEEKS.filter(w=>selMons.has(w.month));
+  const visMkts  = MARKETS.filter(m=>selMkts.has(m.id));
+  const tbl = document.getElementById('tl-table');
+
+  if(!visWeeks.length || !visMkts.length){
+    tbl.innerHTML=`<tr><td style="padding:20px;color:#9CA3AF;text-align:center">${t('noData')}</td></tr>`;
+    return;
+  }
+
+  const monArr = t('months');
+  const monAbbr = t('monthsAbbr');
+  const wkLabel = t('wkLabel');
+
+  // Build month groups for header
+  const monGroups=[];
+  let lastM=null;
+  visWeeks.forEach(w=>{
+    if(w.month!==lastM){ monGroups.push({month:w.month,count:1}); lastM=w.month; }
+    else monGroups[monGroups.length-1].count++;
+  });
+
+  let html='<thead>';
+
+  // Row 1: Month headers
+  html+=`<tr><th class="th-corner"></th>`;
+  monGroups.forEach((g,i)=>{
+    const cls=i%2===0?'th-month':'th-month alt';
+    html+=`<th colspan="${g.count}" class="${cls}">${monArr[g.month]}</th>`;
+  });
+  html+='</tr>';
+
+  // Row 2: Week headers
+  html+=`<tr><th class="th-corner-wk" style="padding:4px 10px;font-size:10px;font-weight:700;color:#4C1D95;text-align:center">${t('mktCorner')}</th>`;
+  visWeeks.forEach(w=>{
+    html+=`<th class="th-week">${monAbbr[w.month]} ${wkLabel}${w.wk}<div class="wk-dates">${w.month}.${w.s}–${w.month}.${w.e}</div></th>`;
+  });
+  html+='</tr></thead><tbody>';
+
+  // Market rows
+  const durMap = t('dur');
+  visMkts.forEach(mkt=>{
+    html+=`<tr><td class="td-market">${mkt.flag} ${mname(mkt)}</td>`;
+    const cells=buildCells(mkt.id, visWeeks);
+    cells.forEach(c=>{
+      if(!c.hol){
+        html+=`<td class="td-empty" colspan="${c.span}">·</td>`;
+      } else {
+        const h=c.hol;
+        const dc=durCat(h.days);
+        const isPub=h.type==='public';
+        const cls=`td-hol ${isPub?`pub-d${dc}`:`sch-d${dc}`}`;
+        const nm = hname(h);
+        html+=`<td class="${cls}" colspan="${c.span}" title="${nm} | ${fmtDate(h.start,h.end)} | ${h.days}d${h.note?'\n'+h.note:''}">
+          <div class="hol-name">${nm}</div>
+          <div class="hol-badge">${h.days}d · ${durMap[dc]}</div>
+        </td>`;
+      }
+    });
+    html+='</tr>';
+  });
+
+  html+='</tbody>';
+  tbl.innerHTML=html;
+}
+
+// ═══════════════════════════════════════════════
+//  RENDER CARDS
+// ═══════════════════════════════════════════════
+function renderCards(){
+  const filtered=HOLIDAYS.filter(h=>{
+    if(!selMkts.has(h.market)) return false;
+    let ok=false;
+    for(let m=h.start[0]; m<=h.end[0]; m++){ if(selMons.has(m)){ok=true;break;} }
+    if(!ok) return false;
+    if(schoolOnly && h.type==='public') return false;
+    return true;
+  }).sort((a,b)=>{
+    if(a.start[0]!==b.start[0]) return a.start[0]-b.start[0];
+    if(a.start[1]!==b.start[1]) return a.start[1]-b.start[1];
+    return MARKETS.findIndex(m=>m.id===a.market)-MARKETS.findIndex(m=>m.id===b.market);
+  });
+
+  const sec=document.getElementById('cards-section');
+  if(!filtered.length){
+    sec.innerHTML=`<div class="empty"><div class="empty-icon">🔍</div><p>${t('noHoliday')}</p></div>`;
+    return;
+  }
+
+  const monArr = t('months');
+  const durMap = t('dur');
+
+  const byMon={};
+  filtered.forEach(h=>{ const m=h.start[0]; if(!byMon[m])byMon[m]=[]; byMon[m].push(h); });
+
+  let html='';
+  Object.keys(byMon).sort((a,b)=>a-b).forEach(mon=>{
+    const items=byMon[mon];
+    const schoolCnt=items.filter(h=>h.type!=='public').length;
+    html+=`<div class="panel">
+      <div class="sec-title">📅 ${monArr[mon]}
+        <span class="count-pill">${items.length} ${t('holidays')}</span>
+        ${schoolCnt?`<span class="count-pill" style="background:#DBEAFE;color:#1D4ED8">${schoolCnt} ${t('school')}</span>`:''}
+      </div>
+      <div class="cards-grid">`;
+    items.forEach(h=>{
+      const mkt=getMkt(h.market);
+      const dc=durCat(h.days);
+      const tLabel=h.type==='school'?t('schType'):h.type==='both'?t('bothType'):t('pubType');
+      const tCls=h.type==='school'?'ct-sch':h.type==='both'?'ct-both':'ct-pub';
+      const nm = hname(h);
+      html+=`<div class="card" style="border-left-color:${mkt.color}">
+        <div class="card-top">
+          <div class="mkt-tag"><span class="mkt-flag">${mkt.flag}</span><span class="mkt-nm">${mname(mkt)}</span></div>
+          <div class="dur-chip dc-${dc}">${h.days}d · ${durMap[dc]}</div>
+        </div>
+        <div class="card-name">${nm}</div>
+        <div class="card-date">📅 ${fmtDate(h.start,h.end)}</div>
+        ${h.note?`<div class="card-note">ℹ️ ${h.note}</div>`:''}
+        <span class="card-type ${tCls}">${tLabel}</span>
+      </div>`;
+    });
+    html+='</div></div>';
+  });
+
+  sec.innerHTML=html;
+}
+
+// ═══════════════════════════════════════════════
+//  MAIN RENDER
+// ═══════════════════════════════════════════════
+function render(){
+  renderTimeline();
+  renderCards();
+}
+
+// ── BOOT ──
+initChips();
+render();
+</script>
+</body>
+</html>
